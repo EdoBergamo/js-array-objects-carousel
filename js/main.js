@@ -27,6 +27,7 @@ const images = [
 ];
 
 let currentImageIndex = 0;
+let intervalId;
 const totalImages = images.length;
 
 const carouselImage = document.getElementById('carousel-image');
@@ -35,6 +36,22 @@ const carouselText = document.getElementById('carousel-text');
 
 const prevButton = document.getElementById('prevButton');
 const nextButton = document.getElementById('nextButton');
+const autoButton = document.getElementById('autoButton');
+const stopButton = document.getElementById('stopButton');
+
+const startCarousel = () => {
+    intervalId = setInterval(() => {
+        currentImageIndex = (currentImageIndex + 1) % totalImages;
+        showImage(currentImageIndex);
+    }, 3000);
+}
+
+const stopCarousel = () => {
+    clearInterval(intervalId);
+}
+
+autoButton.addEventListener('click', startCarousel);
+stopButton.addEventListener('click', stopCarousel);
 
 const showImage = (index) => {
     const { image, title, text } = images[index];
